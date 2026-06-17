@@ -1,0 +1,336 @@
+﻿@page
+@{
+    ViewData["Title"] = "Tips y Cuidado de la Piel - MALP";
+}
+
+<style>
+    body {
+        padding-top: 90px;
+        background-color: #fcf9f2;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #333;
+    }
+
+    /* Clase utilitaria para ocultar texto visualmente pero mantenerlo accesible para lectores de pantalla */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .banner-tips {
+        background-color: #e6dfd3;
+        padding: 40px 20px;
+        text-align: center;
+        border-radius: 12px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
+
+        .banner-tips h1 {
+            color: var(--verde-malp, #1b5e20);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+    .seccion-guia {
+        background-color: #ffffff;
+        border-left: 5px solid var(--acento-terracota, #d2b48c);
+        padding: 25px;
+        border-radius: 0 15px 15px 0;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .pasos-lista {
+        counter-reset: paso-counter;
+        list-style: none;
+        padding: 0;
+    }
+
+        .pasos-lista li {
+            counter-increment: paso-counter;
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+            .pasos-lista li::before {
+                content: counter(paso-counter);
+                position: absolute;
+                left: 0;
+                top: 2px;
+                background-color: var(--verde-malp, #1b5e20);
+                color: white;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                text-align: center;
+                line-height: 32px;
+                font-weight: bold;
+            }
+
+    .grid-tipos-piel {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+
+    .tarjeta-piel {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 25px;
+        border: 1px solid #e2ddd5;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+        transition: transform 0.3s;
+    }
+
+        .tarjeta-piel:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+        }
+
+        .tarjeta-piel h3 {
+            color: var(--verde-malp, #1b5e20);
+            margin-top: 0;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #f5f5dc;
+            padding-bottom: 10px;
+        }
+
+    .badge-recomendado {
+        display: inline-block;
+        background-color: #f5f5dc;
+        color: #5d4037;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.85rem;
+        margin-top: 10px;
+    }
+
+    /* ESTILOS PARA LA NUEVA SECCIÓN DE RENDIMIENTO */
+    .seccion-duracion {
+        padding: 40px 25px;
+        background-color: #faf8f5;
+        margin: 40px auto;
+        border-radius: 15px;
+        border: 1px solid #e6dfd3;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .grid-duracion {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+
+    .tarjeta-duracion {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+        border-top: 4px solid var(--verde-salvia, #81c784);
+        border-left: 1px solid #e2ddd5;
+        border-right: 1px solid #e2ddd5;
+        border-bottom: 1px solid #e2ddd5;
+    }
+
+        .tarjeta-duracion h3 {
+            color: var(--verde-malp, #1b5e20);
+            margin-top: 0;
+            font-size: 1.4rem;
+            padding-bottom: 5px;
+        }
+
+    .badge-tiempo {
+        background-color: var(--acento-terracota, #cd853f);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    .lista-tips {
+        padding-left: 20px;
+        margin: 15px 0 0 0;
+        line-height: 1.6;
+    }
+
+        .lista-tips li {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+    .btn-volver-inicio {
+        display: block;
+        width: 250px;
+        margin: 40px auto;
+        padding: 15px;
+        background-color: #000000;
+        color: #ffffff !important;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+        .btn-volver-inicio:hover {
+            background-color: #333333;
+        }
+</style>
+
+<div id="contenidoPrincipal" role="main" aria-label="Contenido principal de consejos y bienestar" style="padding: 20px; max-width: 1100px; margin: 0 auto;">
+    
+    <div class="banner-tips" role="banner">
+        <img src="/Images/logo1.webp" alt="Logo oficial de MALP Cosmética Natural" style="width: 120px; margin-bottom: 15px;" onerror="this.src='/Images/logo1.webp'" />
+        <h1>Consejos y Guía de Bienestar</h1>
+        <p style="font-size: 1.2rem; color: #555; max-width: 700px; margin: 0 auto;">
+            La naturaleza tiene una respuesta para cada necesidad. Conoce tu piel y aprende a cuidarla con la pureza de nuestros productos artesanales.
+        </p>
+    </div>
+
+    <!-- AUTOANÁLISIS -->
+    <section class="seccion-guia" aria-labelledby="titulo-autoanalisis">
+        <h2 id="titulo-autoanalisis" style="color: #1b5e20; margin-top: 0;">¿Cómo hacer un autoanálisis de piel en casa?</h2>
+        <p style="font-size: 1.1rem; line-height: 1.6;">
+            Para saber con certeza qué le hace bien a tu rostro, te recomendamos realizar esta prueba sencilla una mañana de fin de semana:
+        </p>
+        <ol class="pasos-lista">
+            <li><span class="sr-only">Paso 1: </span><strong>Lava tu rostro:</strong> Por la mañana, limpia tu cara suavemente solo con agua o con un jabón muy neutro (como nuestro jabón de Arroz o Avena). Seca con toques suaves.</li>
+            <li><span class="sr-only">Paso 2: </span><strong>Déjala descansar al natural:</strong> No te apliques ninguna crema, tónico, perfume ni maquillaje. Deja pasar entre 1 y 2 horas enteras sin tocarte la cara.</li>
+            <li><span class="sr-only">Paso 3: </span><strong>El momento de la observación:</strong> Mírate al espejo con buena luz natural y pasa la yema de tus dedos limpias por la frente, nariz, mentón y mejillas para comprobar las sensaciones según la siguiente guía.</li>
+        </ol>
+    </section>
+
+    <!-- TIPOS DE PIEL Y RECOMENDACIONES -->
+    <section aria-labelledby="titulo-resultados">
+        <h2 id="titulo-resultados" style="color: #1b5e20; text-align: center; margin-bottom: 30px;">Resultados y Cuidados Recomendados</h2>
+        
+        <div class="grid-tipos-piel">
+            
+            <!-- Piel Seca -->
+            <article class="tarjeta-piel" aria-labelledby="tipo-seca">
+                <h3 id="tipo-seca">Piel Seca</h3>
+                <p style="line-height: 1.5;"><strong>Sensación:</strong> Se siente tirante, áspera al tacto y puede presentar descamación o enrojecimiento fácil en las mejillas. No hay rastros de brillo.</p>
+                <p><strong>Qué necesita:</strong> Nutrición profunda y aceites que retengan la humedad natural.</p>
+                <div><span class="badge-recomendado" role="text">🌿 Recomendado MALP:</span></div>
+                <p style="font-size: 0.95rem; font-weight: 500; color: #1b5e20; margin-top: 5px;">
+                    Jabón de Coco y Miel o Caléndula / Pomadas naturales nutritivas.
+                </p>
+            </article>
+
+            <!-- Piel Grasa o con Tendencia al Acné -->
+            <article class="tarjeta-piel" aria-labelledby="tipo-grasa">
+                <h3 id="tipo-grasa">Piel Grasa / Acné</h3>
+                <p style="line-height: 1.5;"><strong>Sensación:</strong> Se nota un brillo generalizado por todo el rostro al poco tiempo de lavarlo, con poros dilatados visibles y tendencia a puntos negros o granitos.</p>
+                <p><strong>Qué necesita:</strong> Regular el sebo de forma equilibrada, sin resecar ni agredir la barrera cutánea.</p>
+                <div><span class="badge-recomendado" role="text">🌿 Recomendado MALP:</span></div>
+                <p style="font-size: 0.95rem; font-weight: 500; color: #1b5e20; margin-top: 5px;">
+                    Jabón de Avena (equilibra) o Jabón de Café (exfoliante suave).
+                </p>
+            </article>
+
+            <!-- Piel Mixta -->
+            <article class="tarjeta-piel" aria-labelledby="tipo-mixta">
+                <h3 id="tipo-mixta">Piel Mixta</h3>
+                <p style="line-height: 1.5;"><strong>Sensación:</strong> La famosa "Zona T" (frente, nariz y mentón) presents brillos y grasitud, mientras que las mejillas se sienten normales, tirantes o secas.</p>
+                <p><strong>Qué necesita:</strong> Balance térmico y limpieza suave que hidrate las zonas secas y controle el brillo central.</p>
+                <div><span class="badge-recomendado" role="text">🌿 Recomendado MALP:</span></div>
+                <p style="font-size: 0.95rem; font-weight: 500; color: #1b5e20; margin-top: 5px;">
+                    Jabón de Arroz (aporta luminosidad pareja) / Jabón de Menta (refrescante).
+                </p>
+            </article>
+
+            <!-- Piel Sensible o con Rosácea -->
+            <article class="tarjeta-piel" aria-labelledby="tipo-sensible">
+                <h3 id="tipo-sensible">Piel Sensible / Rosácea</h3>
+                <p style="line-height: 1.5;"><strong>Sensación:</strong> Reacciona rápidamente al calor, viento o productos comerciales. Suele arder, picar o ponerse colorada con extrema facilidad.</p>
+                <p><strong>Qué necesita:</strong> Desinflamatorios potentes, calmantes de tejidos y total ausencia de químicos agresivos.</p>
+                <div><span class="badge-recomendado" role="text">🌿 Recomendado MALP:</span></div>
+                <p style="font-size: 0.95rem; font-weight: 500; color: #1b5e20; margin-top: 5px;">
+                    Jabón de Malva (especial rosácea) o Jabón de Aloe Vera (hidratación extrema).
+                </p>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- NUEVA SECCIÓN: RENDIMIENTO Y DURACIÓN DE PRODUCTOS -->
+    <section class="seccion-duracion" aria-labelledby="titulo-duracion">
+        <h2 id="titulo-duracion" style="color: #1b5e20; text-align: center; margin-top: 0;">Rendimiento y Cuidado de tus Productos</h2>
+        <p style="text-align: center; color: #555; font-style: italic; margin-bottom: 30px;">
+            Al no contener endurecedores sintéticos ni químicos artificiales, tus productos artesanales necesitan pequeños cuidados para rendir al máximo.
+        </p>
+
+        <div class="grid-duracion">
+            
+            <!-- Rendimiento Jabones -->
+            <article class="tarjeta-duracion" aria-labelledby="prod-jabones">
+                <span class="badge-tiempo" role="text">Rendimiento óptimo</span>
+                <h3 id="prod-jabones">Pastillas de Jabón</h3>
+                <p style="line-height: 1.5;">Nuestras barras son ricas en glicerina natural, reteniendo perfectamente la hidratación.</p>
+                <ul class="lista-tips">
+                    <li><strong>Usa jabonera con filtro:</strong> El gran secreto es mantenerlo en una jabonera con ranuras para que drene el agua sobrante.</li>
+                    <li><strong>Evita charcos:</strong> Nunca dejes la pastilla directamente bajo el chorro de agua de la ducha o en recipientes lisos y planos.</li>
+                    <li><strong>Secado óptimo:</strong> Permitir que la barra se seque por completo entre cada lavado multiplicará sus semanas de vida útil.</li>
+                </ul>
+            </article>
+
+            <!-- Rendimiento EcoDesodorantes -->
+            <article class="tarjeta-duracion" aria-labelledby="prod-desodorantes">
+                <span class="badge-tiempo" role="text">Duración: 3 a 4 meses</span>
+                <h3 id="prod-desodorantes">Eco Desodorantes (50 ml)</h3>
+                <p style="line-height: 1.5;">Nuestra fórmula natural concentrada rinde muchísimo más tiempo gracias a la pureza de sus ingredientes activos.</p>
+                <ul class="lista-tips">
+                    <li><strong>Usa la medida justa:</strong> Al no tener rellenos artificiales, una porción pequeña del tamaño de una arveja por axila basta para protegerte eficazmente todo el día.</li>
+                    <li><strong>Temperatura adecuada:</strong> Al poseer una base noble de aceite de coco puro, resguárdalo en un sitio fresco y lejos de la luz solar directa para preservar su textura perfecta.</li>
+                </ul>
+            </article>
+
+            <!-- Rendimiento Agua Micelar -->
+            <article class="tarjeta-duracion" aria-labelledby="prod-micelar">
+                <span class="badge-tiempo" role="text">Uso cotidiano diario</span>
+                <h3 id="prod-micelar">Agua Micelar Botánica</h3>
+                <p style="line-height: 1.5;">Limpieza integral y frescura botánica real en tu cuidado sin agredir los tejidos cutáneos.</p>
+                <ul class="lista-tips">
+                    <li><strong>Forma de uso:</strong> Humedece un disco textil reutilizable y apóyalo unos segundos en la zona antes de deslizarlo; así las micelas remueven impurezas sin necesidad de refregar.</li>
+                    <li><strong>Cierre seguro:</strong> Mantén siempre la tapa bien ajustada al terminar para proteger los extractos florales e impedir que se alteren.</li>
+                </ul>
+            </article>
+
+            <!-- Rendimiento Pomadas -->
+            <article class="tarjeta-duracion" aria-labelledby="prod-pomadas">
+                <span class="badge-tiempo" role="text">Alta concentración</span>
+                <h3 id="prod-pomadas">Pomadas y Ungüentos</h3>
+                <p style="line-height: 1.5;">Elaboradas artesanalmente con ceras nativas y aceites vegetales puros que forman una barrera reparadora.</p>
+                <ul class="lista-tips">
+                    <li><strong>Higiene al aplicar:</strong> Retira tu porción utilizando siempre las yemas de los dedos limpias (o una pequeña espátula) para no ingresar humedad externa al pote.</li>
+                    <li><strong>Almacenamiento:</strong> Conserva el frasco bien sellado en un espacio seco para que sus aceites esenciales no se evaporen.</li>
+                </ul>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- TIP EXTRA GENERAL -->
+    <div style="background-color: #f5f5dc; padding: 20px; border-radius: 10px; text-align: center; font-style: italic; margin-bottom: 20px;" role="note" aria-label="Consejo final">
+        "Recuerda que la cosmética natural actúa respetando los tiempos de tu cuerpo. La constancia diaria es el secreto para ver tu piel verdaderamente sana y radiante."
+    </div>
+
+    <a href="/" class="btn-volver-inicio" aria-label="Volver a la página principal de inicio">Volver al Inicio</a>
+</div>

@@ -1,0 +1,168 @@
+﻿@page
+@{
+    ViewData["Title"] = "Gel para Piernas Cansadas - MALP";
+}
+
+<style>
+    body {
+        padding-top: 90px;
+        background-color: #fcf9f2;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #333;
+    }
+
+    .contenedor-producto {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .tarjeta-detalles {
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        border-top: 6px solid #1b5e20;
+    }
+
+    .seccion-flex {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .caja-foto {
+        flex: 1;
+        min-width: 280px;
+        height: 300px;
+        background-color: #f9f9f9;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #e2ddd5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .caja-info {
+        flex: 1.2;
+        min-width: 280px;
+    }
+
+    .precio-destacado {
+        font-size: 1.8rem;
+        color: #1b5e20;
+        font-weight: bold;
+        margin: 15px 0;
+    }
+
+    .propiedades-lista {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+    }
+
+        .propiedades-lista li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+            .propiedades-lista li::before {
+                content: "🌿";
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+    .btn-comprar {
+        background-color: #1b5e20;
+        color: white !important;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        transition: 0.3s;
+    }
+
+        .btn-comprar:hover {
+            background-color: #2e7d32;
+        }
+
+    .btn-volver {
+        display: block;
+        width: 200px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #000000;
+        color: #ffffff !important;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+</style>
+
+<div class="contenedor-producto">
+    <div class="tarjeta-detalles">
+        <div class="seccion-flex">
+            
+            <div class="caja-foto">
+                <img src="/Images/gel_piernas.webp" alt="Gel para Piernas Cansadas MALP" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.src='/Images/logo1.webp'" />
+            </div>
+
+            <div class="caja-info">
+                <span style="color: #d2b48c; font-weight: bold; text-transform: uppercase; font-size: 0.9rem;">Línea Terapéutica Corporal</span>
+                <h1 style="color: #1b5e20; margin: 5px 0 15px 0; font-size: 2rem;">Gel para Piernas Cansadas</h1>
+                
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #555;">
+                    Fórmula artesanal de efecto frío intenso, especialmente diseñada para reactivar la circulación y brindar un alivio inmediato a las piernas fatigadas, hinchadas o con pesadez.
+                </p>
+
+                <div class="precio-destacado">UYU 650</div>
+
+                <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Gel para Piernas Cansadas', 250, 'gel_piernas.webp')">
+                    Agregar al Carrito
+                </button>
+            </div>
+
+        </div>
+
+        <div style="margin-top: 40px; border-top: 1px solid #f5f5dc; padding-top: 25px;">
+            <h3 style="color: #1b5e20; font-size: 1.3rem;">Beneficios y Modo de Uso</h3>
+            <ul class="propiedades-lista">
+                <li><strong>Efecto Criogénico (Frío):</strong> Contrae los vasos sanguíneos periféricos produciendo un descanso y frescura instantánea.</li>
+                <li><strong>Alivio de Pesadez:</strong> Ideal para usar al final del día después de largas jornadas de pie o caminatas intensas.</li>
+                <li><strong>Modo de aplicación:</strong> Masajear suavemente de forma ascendente, desde los tobillos hacia los muslos, hasta que se absorba por completo. Para potenciar el efecto frío, puedes guardarlo en la heladera.</li>
+            </ul>
+        </div>
+    </div>
+
+    <a href="/" class="btn-volver">Volver al Catálogo</a>
+</div>
+
+<script>
+    function agregarAlCarrito(nombre, precio, imagen) {
+        let carrito = JSON.parse(localStorage.getItem('carritoMALP')) || [];
+        carrito.push({
+            nombre: nombre,
+            precio: parseInt(precio),
+            imagen: imagen
+        });
+        localStorage.setItem('carritoMALP', JSON.stringify(carrito));
+
+        if (typeof actualizarContador === 'function') {
+            actualizarContador();
+        }
+
+        alert(`¡${nombre} agregado al carrito con éxito!`);
+    }
+</script>

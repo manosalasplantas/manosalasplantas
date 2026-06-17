@@ -1,0 +1,62 @@
+﻿@page
+@{ ViewData["Title"] = "Nuestros Combos - MALP"; }
+
+<style>
+    .combos-container { max-width: 1100px; margin: auto; padding: 40px 20px; }
+    .grid-combos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .card-combo { background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--verde-malp); transition: 0.3s; position: relative; }
+    .card-combo img { width: 100%; max-height: 200px; object-fit: contain; margin-bottom: 15px; }
+    
+    .btn-comprar { background: var(--verde-malp); color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+    .btn-volver { background: #eee; color: #333; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+    
+    #btnSubir { position: fixed; bottom: 20px; right: 20px; background: var(--acento-terracota); color: white; border: none; border-radius: 50%; width: 45px; height: 45px; cursor: pointer; display: none; z-index: 1000; }
+</style>
+
+<div class="combos-container">
+    <a href="javascript:history.back()" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver</a>
+    
+    <h1 style="text-align:center; color: var(--verde-malp);">Propuestas Especiales 2026</h1>
+    
+    <div class="grid-combos">
+        <!-- COMBO 1 -->
+        <div class="card-combo">
+            <img src="/Images/combo1.png" alt="Combo 1">
+            <h3>Combo 1: Relax & Botánica</h3>
+            <p style="font-size: 0.9rem; color: #666;">Body Splash + Jabón Glicerina + Sales</p>
+            <p style="font-size: 1.5rem; color: var(--acento-terracota); font-weight: bold;">$480 UYU</p>
+            <button class="btn-comprar" onclick="agregarCarrito('Combo 1: Relax', 480)">
+                <i class="fas fa-cart-plus"></i> Añadir al Carrito
+            </button>
+        </div>
+
+        <!-- COMBO 2 -->
+        <div class="card-combo">
+            <img src="/Images/Miel1.webp" alt="Combo 2">
+            <h3>Combo 2: Dulzura de Miel</h3>
+            <p style="font-size: 0.9rem; color: #666;">Jabón de Miel + Bálsamo Natural</p>
+            <p style="font-size: 1.5rem; color: var(--acento-terracota); font-weight: bold;">$350 UYU</p>
+            <button class="btn-comprar" onclick="agregarCarrito('Combo 2: Miel', 350)">
+                <i class="fas fa-cart-plus"></i> Añadir al Carrito
+            </button>
+        </div>
+    </div>
+</div>
+
+<button id="btnSubir" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fas fa-chevron-up"></i></button>
+
+<script>
+    function agregarCarrito(nombre, precio) {
+        let carrito = JSON.parse(localStorage.getItem('carritoMALP')) || [];
+        carrito.push({ nombre, precio });
+        localStorage.setItem('carritoMALP', JSON.stringify(carrito));
+        if(typeof actualizarContador === "function") actualizarContador();
+        alert("¡" + nombre + " agregado al carrito! 🍀");
+    }
+
+    window.onscroll = function() {
+        let btn = document.getElementById("btnSubir");
+        if (document.documentElement.scrollTop > 300) btn.style.display = "block";
+        else btn.style.display = "none";
+    };
+</script>

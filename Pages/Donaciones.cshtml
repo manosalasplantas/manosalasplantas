@@ -1,0 +1,128 @@
+﻿@page
+@{
+    ViewData["Title"] = "Apoya Nuestro Proyecto - MALP";
+}
+
+<style>
+    body {
+        padding-top: 90px;
+        background-color: #fcf9f2;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #333;
+    }
+
+    .contenedor-donaciones {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .tarjeta-historia {
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 35px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        border-top: 6px solid #1b5e20;
+        margin-bottom: 30px;
+    }
+
+    .titulo-donaciones {
+        color: #1b5e20;
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: bold;
+    }
+
+    .texto-historia {
+        font-size: 1.15rem;
+        line-height: 1.7;
+        color: #444;
+        text-align: justify;
+    }
+
+    .resaltado-emocional {
+        background-color: #f9f6f0;
+        border-left: 4px solid #d2b48c;
+        padding: 15px 20px;
+        font-style: italic;
+        margin: 25px 0;
+        font-size: 1.1rem;
+    }
+
+    .tarjeta-cuenta {
+        background-color: #f5f5dc;
+        border: 2px dashed #1b5e20;
+        border-radius: 12px;
+        padding: 25px;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .datos-cuenta {
+        font-size: 1.3rem;
+        color: #1b5e20;
+        font-weight: bold;
+        margin: 10px 0;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-volver {
+        display: block;
+        width: 220px;
+        margin: 30px auto 10px auto;
+        padding: 12px;
+        background-color: #000000;
+        color: #ffffff !important;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+        .btn-volver:hover {
+            background-color: #333333;
+        }
+</style>
+
+<div class="contenedor-donaciones">
+    <div style="text-align: center; margin-bottom: 15px;">
+        <img src="/Images/logo1.webp" alt="Logo MALP" style="width: 130px;" onerror="this.src='/Images/logo1.webp'" />
+    </div>
+
+    <div class="tarjeta-historia">
+        <h1 class="titulo-donaciones">Apoya a Manos a las Plantas (MALP)</h1>
+        
+        <div class="texto-historia">
+            <p>
+                Detrás de cada jabón, crema y fragancia de <strong>MALP</strong> hay una historia de profunda dedicación, superación y amor por la naturaleza. Este proyecto nació no solo como un emprendimiento de cosmética natural, sino como nuestra manera de demostrar que las barreras se transforman en fortalezas.
+            </p>
+            
+            <p>
+                Somos un equipo liderado por mujeres con discapacidad visual. Elaborar de forma artesanal cada producto implica un desafío diario, donde nuestros ojos se trasladan por completo a las manos, al tacto de los ingredientes botánicos, al equilibrio de las texturas y al aroma de los aceites puros. Cada etiqueta colocada y cada envase preparado lleva un esfuerzo inmenso que muchas veces no se ve a simple vista, pero que se siente en el alma de lo que hacemos.
+            </p>
+
+            <div class="resaltado-emocional">
+                "No pedimos que se nos mire con lástima, sino con la misma confianza y cariño con la que nosotras formulamos cada producto para tu bienestar. Tu colaboración nos ayuda a seguir adquiriendo materia prima, mejorar nuestras herramientas adaptadas y mantener vivo este sueño."
+            </div>
+
+            <p>
+                Si sientes el deseo de apoyarnos para que MALP siga creciendo y superando obstáculos, cualquier colaboración, por pequeña que sea, es un impulso gigante para nosotras.
+            </p>
+        </div>
+
+        <!-- DATOS DE LA CUENTA PREX -->
+        <div class="tarjeta-cuenta">
+            <h3 style="margin-top: 0; color: #5d4037; font-size: 1.2rem; text-transform: uppercase;">Datos para Colaborar</h3>
+            <p style="margin: 5px 0; font-size: 1.1rem; color: #555;">Cuenta Prex (Uruguay)</p>
+            <div class="datos-cuenta">Beneficiaria: María Gocio</div>
+            <div class="datos-cuenta" style="font-size: 1.5rem; color: #0d47a1;">PREX:1662050</div>
+            <p style="font-size: 0.95rem; color: #666; margin-bottom: 0; margin-top: 10px;">
+                *Puedes realizar la transferencia directamente desde tu app Prex de forma rápida y segura.
+            </p>
+        </div>
+
+        <a href="/" class="btn-volver">Volver al Inicio</a>
+    </div>
+</div>

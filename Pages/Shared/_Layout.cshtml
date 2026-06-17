@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>@ViewData["Title"] - MALP</title>
+    
+    <link rel="icon" type="image/webp" href="/Images/logo1.webp" />
+    <link rel="apple-touch-icon" href="/Images/logo1.webp" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
+    <style>
+        :root {
+            --verde-malp: #1b5e20;
+            --verde-salvia: #78909c;
+            --beige-fondo: #fafafa;
+            --texto: #333333;
+            --acento-terracota: #a0522d;
+            --verde-whatsapp: #25d366;
+        }
+        
+        body {
+            margin: 0;
+            background-color: var(--beige-fondo);
+            color: var(--texto);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Marquesina responsiva */
+        .marquesina {
+            background: var(--verde-malp);
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .marquesina-contenido {
+            display: inline-block;
+            animation: scroll 25s linear infinite;
+            padding-left: 100%;
+        }
+        
+        @@keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* NAVBAR BASE */
+        nav {
+            background: white;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        /* NAVBAR PC */
+        @@media (min-width: 992px) {
+            nav {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 15px 40px;
+            }
+            
+            .nav-links {
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+                width: auto;
+            }
+        }
+        
+        .btn-nav {
+            text-decoration: none;
+            color: var(--texto);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+            padding: 5px;
+            transition: color 0.3s;
+        }
+        
+        .btn-nav:hover {
+            color: var(--verde-malp);
+        }
+        
+        /* Carrito Adaptable */
+        .btn-carrito {
+            color: var(--verde-malp);
+            font-weight: bold;
+            border: 2px solid var(--verde-malp);
+            padding: 8px 15px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            grid-column: span 2;
+            margin: 5px auto;
+            width: fit-content;
+            transition: 0.3s;
+        }
+        
+        .btn-carrito:hover {
+            background-color: var(--verde-malp);
+            color: white;
+        }
+        
+        @@media (min-width: 992px) {
+            .btn-carrito {
+                grid-column: auto;
+                margin: 0;
+            }
+        }
+        
+        #cart-count {
+            background: #d32f2f;
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 50%;
+            padding: 2px 7px;
+        }
+        
+        .container-body {
+            min-height: 80vh;
+        }
+        
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+        }
+
+        /* DISEÑO DEL BOTÓN FLOTANTE DE WHATSAPP */
+        .wpp-flotante {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--verde-whatsapp);
+            color: white !important;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 9999;
+            transition: transform 0.3s, background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .wpp-flotante:hover {
+            transform: scale(1.1);
+            background-color: #128c7e;
+        }
+        
+        /* VISOR GLOBAL ADAPTABLE */
+        #visorGlobal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.95);
+            z-index: 999999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        #imgVisorInterno {
+            max-width: 90%;
+            max-height: 65vh;
+            object-fit: contain;
+            border: 2px solid white;
+            border-radius: 8px;
+        }
+        
+        .controles-globales {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-v-g {
+            padding: 12px 25px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            font-weight: bold;
+            background: white;
+            color: black;
+            transition: 0.2s;
+        }
+        
+        .btn-v-g:active { transform: scale(0.95); }
+    </style>
+</head>
+<body>
+    <div class="marquesina">
+        <div class="marquesina-contenido">
+            BIENVENIDOS A MALP — PRODUCCIÓN ARTESANAL URUGUAYA — INGREDIENTES SELECCIONADOS — ECODESODORANTES NATURALES — ENVÍOS A TODO EL PAÍS —
+        </div>
+    </div>
+    
+    <nav>
+        <a href="/" style="text-decoration:none; font-weight: bold; color: var(--verde-malp); font-size: 1.8rem; letter-spacing: 2px;">MALP</a>
+        
+        <div class="nav-links">
+            <a href="/" class="btn-nav">Inicio</a>
+            <li class="nav-item">
+    <a class="nav-link text-dark" href="/Tips">Tips</a>
+</li>
+            <a href="/QuienesSomos" class="btn-nav">Nosotros</a>
+            <a href="/PreguntasFrecuentes" class="btn-nav">Ayuda</a>
+            <a href="/Colaboradores" class="btn-nav">Colaboradores</a>
+                        <a href="/Donaciones" class="btn-nav" style="color: var(--acento-terracota); font-weight: bold;">Donaciones</a>
+                        <a href="/Carrito" class="btn-nav btn-carrito">
+                <i class="fas fa-shopping-cart"></i> CARRITO
+                <span id="cart-count" style="display: none;">0</span>
+            </a>
+        </div>
+    </nav>
+    
+    <div class="container-body">
+        @RenderBody()
+    </div>
+    
+    <!-- Botón Flotante de WhatsApp para toda la web -->
+    <a href="javascript:void(0);" onclick="contactarWhatsApp()" class="wpp-flotante" title="Consúltanos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <footer>
+        <p>© 2026 MALP - Calidad en cada detalle.</p>
+        <a href="javascript:void(0);" onclick="contactarWhatsApp()" style="color:var(--acento-terracota); text-decoration:none; font-weight:bold; font-size:1.1rem;">
+            <i class="fab fa-whatsapp"></i> Consultas por WhatsApp
+        </a>
+    </footer>
+    
+    <div id="visorGlobal">
+        <button onclick="cerrarVisorG()" style="position: absolute; top: 20px; right: 20px; background: white; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 1000000;">✕</button>
+        <img id="imgVisorInterno" src="">
+        <p id="txtVisorG" style="color:white; font-weight:bold; margin-top:15px; font-size: 1rem; text-align: center; padding: 0 15px;"></p>
+        <div class="controles-globales">
+            <button class="btn-v-g" onclick="cambiarG(-1)">ANT.</button>
+            <button class="btn-v-g" onclick="cambiarG(1)">SIG.</button>
+        </div>
+    </div>
+    
+    <script>
+        function contactarWhatsApp() {
+            var numeros = ['59894539644', '59898168826'];
+            var elegido = numeros[Math.floor(Math.random() * numeros.length)];
+            var mensaje = encodeURIComponent("¡Hola! Vengo de la web de MALP y quisiera hacer una consulta. 🍀");
+            window.open('https://wa.me/' + elegido + '?text=' + mensaje, '_blank');
+        }
+        
+        function actualizarContador() {
+            let carrito = JSON.parse(localStorage.getItem('carritoMALP')) || [];
+            let countElement = document.getElementById('cart-count');
+            if (carrito.length > 0) {
+                countElement.innerText = carrito.length;
+                countElement.style.display = 'inline-block';
+            } else {
+                countElement.style.display = 'none';
+            }
+        }
+        
+        let fotosG = [];
+        let idxG = 0;
+        let titG = "";
+        
+        function abrirVisorG(titulo, nombresFotos) {
+            titG = titulo;
+            fotosG = Array.isArray(nombresFotos) ? nombresFotos : nombresFotos.split(',');
+            idxG = 0;
+            document.getElementById('visorGlobal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            actualizarG();
+        }
+        
+        function cerrarVisorG() {
+            document.getElementById('visorGlobal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+        
+        function cambiarG(paso) {
+            idxG = (idxG + paso + fotosG.length) % fotosG.length;
+            actualizarG();
+        }
+        
+        function actualizarG() {
+            const img = document.getElementById('imgVisorInterno');
+            img.src = '/Images/' + fotosG[idxG].trim();
+            document.getElementById('txtVisorG').innerText = titG + " (" + (idxG + 1) + "/" + fotosG.length + ")";
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") cerrarVisorG();
+        });
+        
+        document.addEventListener('DOMContentLoaded', actualizarContador);
+    </script>
+</body>
+</html>

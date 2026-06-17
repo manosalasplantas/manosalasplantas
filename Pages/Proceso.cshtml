@@ -1,0 +1,121 @@
+﻿@page "/Proceso"
+@{
+    ViewData["Title"] = "Nuestro Proceso de Calidad - MALP";
+}
+
+<style>
+    .proceso-container {
+        max-width: 850px;
+        margin: auto;
+        padding: 60px 20px;
+        font-family: 'Segoe UI', sans-serif;
+        line-height: 1.8;
+        color: #333;
+    }
+
+    .proceso-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+        .proceso-header h1 {
+            color: var(--verde-malp);
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+
+        .proceso-header p {
+            font-size: 1.3rem;
+            color: #555;
+        }
+
+    .pilar-caja {
+        background-color: #f9fbf9;
+        padding: 30px;
+        border-left: 5px solid var(--verde-salvia);
+        margin-bottom: 30px;
+        border-radius: 0 15px 15px 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
+
+    .pilar-titulo {
+        color: var(--verde-malp);
+        font-size: 1.5rem;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+        .pilar-titulo span {
+            background: var(--verde-salvia);
+            color: white;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.1rem;
+        }
+
+    .frase-final {
+        margin-top: 60px;
+        text-align: center;
+        padding: 40px;
+        border-top: 1px solid #eee;
+    }
+
+        .frase-final p {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--verde-malp);
+            margin: 0;
+        }
+
+        .frase-final span {
+            color: var(--acento-terracota);
+            display: block;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+</style>
+
+<div class="proceso-container">
+    <div class="proceso-header">
+        <h1>Cómo desarrollamos nuestras fórmulas</h1>
+        <p>Seleccionamos materias primas confiables y evaluamos su comportamiento real en la piel.</p>
+        <p>Analizamos textura, estabilidad y rendimiento antes de incorporar cada producto a nuestra colección.</p>
+    </div>
+
+    <h2 style="text-align: center; color: var(--acento-terracota); margin-bottom: 40px; font-weight: 500;">
+        Nuestro proceso se basa en tres pilares:
+    </h2>
+
+    <div class="pilar-caja">
+        <h3 class="pilar-titulo"><span>1</span> Selección de Materias Primas</h3>
+        <p>Trabajamos únicamente con aceites, mantecas y componentes que cumplen con estándares de calidad y pureza definidos por la marca.</p>
+    </div>
+
+    <div class="pilar-caja">
+        <h3 class="pilar-titulo"><span>2</span> Pruebas de Estabilidad</h3>
+        <p>Evaluamos la consistencia y el comportamiento del producto con el paso del tiempo, asegurando que mantenga su calidad en condiciones normales de uso.</p>
+    </div>
+
+    <div class="pilar-caja">
+        <h3 class="pilar-titulo"><span>3</span> Rendimiento Real</h3>
+        <p>Observamos duración, textura y experiencia en el uso cotidiano antes de validar su lanzamiento.</p>
+    </div>
+
+    <div class="frase-final">
+        <p>La calidad no se declara.</p>
+        <span>Se confirma.</span>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+        <a href="/" style="color: var(--verde-salvia); text-decoration: none; font-weight: bold;">
+            <i class="fas fa-arrow-left"></i> Volver al inicio
+        </a>
+    </div>
+</div>

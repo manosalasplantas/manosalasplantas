@@ -1,0 +1,280 @@
+﻿@page
+@{
+    ViewData["Title"] = "Jabones Artesanales - MALP";
+}
+
+<style>
+    body {
+        padding-top: 80px;
+        background-color: #fdfaf5;
+        font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    /* Estilos del botón flotante Subir */
+    #btnSubir {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+        border: none;
+        outline: none;
+        background-color: #1b5e20;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 50%;
+        font-size: 20px;
+        width: 50px;
+        height: 50px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
+
+        #btnSubir:hover {
+            background-color: #2e7d32;
+            transform: scale(1.1);
+        }
+
+    .tarjeta-producto {
+        border-radius: 15px;
+        padding: 20px;
+        width: 300px;
+        text-align: center;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 2px solid #e0e0e0;
+    }
+
+    .contenedor-foto {
+        height: 200px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        border: none;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 8px;
+    }
+
+        .contenedor-foto img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .nombre-jabon {
+        color: #1b5e20;
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .descripcion-texto {
+        font-size: 0.9rem;
+        color: #444;
+        line-height: 1.4;
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    .precio-texto {
+        font-weight: bold;
+        color: #1b5e20;
+        font-size: 1.3rem;
+        margin: 10px 0;
+    }
+
+    .btn-principal {
+        background-color: #1b5e20 !important;
+        color: white !important;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 100%;
+        font-size: 1.1rem;
+    }
+
+    .btn-volver-final {
+        display: block;
+        width: 250px;
+        margin: 50px auto 20px auto;
+        padding: 15px;
+        background-color: #000000;
+        color: #ffffff !important;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+        .btn-volver-final:hover {
+            background-color: #333333;
+        }
+
+    #visorFotos {
+        display: none;
+        position: fixed;
+        z-index: 6000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.95);
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    #imgVisor {
+        max-width: 80%;
+        max-height: 60%;
+        border-radius: 10px;
+        cursor: zoom-in;
+        transition: transform 0.3s;
+        border: 3px solid white;
+    }
+
+    .img-zoom {
+        transform: scale(1.5);
+        cursor: zoom-out;
+    }
+</style>
+
+<button onclick="subirArriba()" id="btnSubir" title="Subir al inicio">▲</button>
+
+<main id="contenidoPrincipal">
+    <div style="text-align: center;">
+        <img src="/Images/logo1.webp" alt="Logo MALP" style="width: 150px;" />
+        <h1 style="color: #1b5e20;">Nuestros Jabones Artesanales</h1>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; padding: 20px;">
+        @{
+            var listaJabones = new[] {
+                new { id = "lavanda", n = "Lavanda", p = 200, d = "Relajante natural. Ayuda a conciliar el sueño y calmar irritaciones leves.", img = "lavanda.webp" },
+                new { id = "arroz", n = "Arroz", p = 200, d = "Aclarante suave. Unifica el tono de la piel y aporta luminosidad.", img = "arroz.png" },
+                new { id = "aloe", n = "Aloe Vera", p = 200, d = "Hidratación extrema. Calma quemaduras solares y regenera tejidos.", img = "aloe.png" },
+                new { id = "canela", n = "Canela", p = 200, d = "Estimulante y antiséptico. Activa la circulación con aroma cálido.", img = "CANELA.PNG" },
+                new { id = "coco", n = "Coco", p = 200, d = "Nutrición intensa. Ideal para pieles muy secas, crea espuma cremosa.", img = "COCO.WEBP" },
+                new { id = "miel", n = "Miel", p = 200, d = "Antibacterial y nutritivo. Suaviza asperezas y aporta brillo.", img = "miel.webp" },
+                new { id = "cocoymiel", n = "Coco y Miel", p = 200, d = "Doble hidratación. Repara profundamente las pieles más castigadas.", img = "cocoymiel.webp" },
+                new { id = "zanahoria", n = "Zanahoria", p = 200, d = "Efecto bronceado. Rico en vitaminas que mantienen un color radiante.", img = "zanahoria.webp" },
+                new { id = "cafe", n = "Café", p = 200, d = "Exfoliante reafirmante. Remueve células muertas y estimula la circulación.", img = "cafe.webp" },
+                new { id = "malva", n = "Malva", p = 200, d = "Calma la rosácea. Especial para pieles sensibles, reduce enrojecimiento.", img = "malva.webp" },
+                new { id = "menta", n = "Menta", p = 200, d = "Efecto refrescante. Tonifica y descansa las piernas cansadas.", img = "menta.webp" },
+                new { id = "calendula", n = "Caléndula", p = 200, d = "Sanador cutáneo. Trata dermatitis, eccemas y regenera tejidos.", img = "calendula.webp" },
+                new { id = "avena", n = "Avena", p = 200, d = "Equilibrante natural. Absorbe exceso de grasa sin resecar la piel.", img = "avena.webp" },
+                new { id = "masajeador", n = "Masajeador", p = 200, d = "Diseño ergonómico. Favorece el drenaje linfático durante la ducha.", img = "masajeador.webp" },
+                new { id = "cannabis", n = "Cannabis", p = 300, d = "Analgésico potente. Reduce dolores musculares y brinda relax profundo.", img = "CANNABIS.WEBP" },
+                new { id = "curcuma", n = "Cúrcuma", p = 200, d = "Antioxidante facial. Ilumina el rostro y combate manchas.", img = "curcuma.png" }
+            };
+
+            foreach (var item in listaJabones)
+            {
+                <section class="tarjeta-producto">
+                    <button type="button" class="contenedor-foto" onclick="abrirVisor('@item.id')" aria-label="Ver fotos de @item.n">
+                        <img src="/Images/@item.img" alt="Jabón @item.n" onerror="this.src='/Images/logo1.webp'" />
+                    </button>
+                    <h2 class="nombre-jabon">@item.n</h2>
+                    <p class="descripcion-texto">@item.d</p>
+
+                    <div class="precio-texto">UYU @item.p</div>
+
+                    <button type="button" class="btn-principal"
+                            onclick="gestionarCarrito('@item.n', @item.p, '@item.img')">
+                        Agregar al Carrito
+                    </button>
+                </section>
+            }
+        }
+    </div>
+
+    <a href="/" class="btn-volver-final">Volver al Inicio</a>
+</main>
+
+<div id="visorFotos" role="dialog" aria-modal="true" onclick="if(event.target === this) cerrarVisor()">
+    <button type="button" onclick="cerrarVisor()" style="position:absolute; top:30px; right:30px; background:none; border:none; color:white; font-size:40px; cursor:pointer;">✕</button>
+    <img id="imgVisor" src="" alt="Imagen ampliada" onclick="this.classList.toggle('img-zoom')" onerror="this.src='/Images/logo1.webp'">
+    <p id="txtVisor" style="color:white; margin-top:15px; font-weight:bold; font-size: 1.2rem;"></p>
+    <div style="margin-top: 20px; display: flex; gap: 15px;">
+        <button type="button" onclick="cambiarFoto(-1)" style="padding: 10px 20px; background:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">Anterior</button>
+        <button type="button" onclick="cambiarFoto(1)" style="padding: 10px 20px; background:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">Siguiente</button>
+    </div>
+</div>
+
+<script>
+    let prodActual = "";
+    let fotoIdx = 0;
+
+    const fotosData = {
+        lavanda: ["lavanda.webp", "lavanda1.webp", "lavanda3.webp"],
+        arroz: ["arroz.png", "arroz1.png", "arroz3.png"],
+        aloe: ["aloe.png", "aloe1.png", "aloe3.png"],
+        canela: ["CANELA.PNG", "CANELA1.PNG", "CANELA3.PNG"],
+        coco: ["COCO.WEBP", "COCO1.WEBP", "COCO3.PNG"],
+        miel: ["miel.webp", "miel1.webp", "miel3.webp"],
+        cocoymiel: ["cocoymiel.webp", "cocoymiel1.webp", "cocoymiel3.webp"],
+        zanahoria: ["zanahoria.webp", "zanahoria1.webp", "zanahoria3.webp"],
+        cafe: ["cafe.webp", "cafe1.webp", "cafe3.webp"],
+        malva: ["malva.webp", "malva1.webp", "malva3.webp"],
+        menta: ["menta.webp", "menta1.webp", "menta3.webp"],
+        calendula: ["calendula.webp", "calendula1.webp", "calendula3.webp"],
+        avena: ["avena.webp", "avena1.webp", "avena3.webp"],
+        masajeador: ["masajeador.webp", "masajeador1.webp", "masajeador3.webp"],
+        cannabis: ["CANNABIS.WEBP", "CANNABIS1.WEBP", "CANNABIS3.PNG"],
+        curcuma: ["curcuma.png", "curcuma1.png", "curcuma3.png"]
+    };
+
+    function gestionarCarrito(nombre, precio, imagen) {
+        let carrito = JSON.parse(localStorage.getItem('carritoMALP')) || [];
+        // Si la imagen falla, usamos el logo por defecto para el carrito
+        let imgFinal = imagen;
+        
+        carrito.push({ nombre: nombre, precio: precio, imagen: imgFinal });
+        localStorage.setItem('carritoMALP', JSON.stringify(carrito));
+
+        if(typeof actualizarContador === 'function') actualizarContador();
+
+        alert("¡" + nombre + " se agregó al carrito por UYU " + precio + "!");
+    }
+
+    window.onscroll = function() {
+        const btn = document.getElementById("btnSubir");
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+    };
+
+    function subirArriba() {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    function abrirVisor(id) {
+        prodActual = id;
+        fotoIdx = 0;
+        document.getElementById("visorFotos").style.display = "flex";
+        actualizarFotoVisor();
+    }
+    function cerrarVisor() {
+        document.getElementById("visorFotos").style.display = "none";
+        document.getElementById("imgVisor").classList.remove("img-zoom");
+    }
+    function cambiarFoto(dir) {
+        fotoIdx = (fotoIdx + dir + 3) % 3;
+        actualizarFotoVisor();
+    }
+    function actualizarFotoVisor() {
+        const img = document.getElementById("imgVisor");
+        img.classList.remove("img-zoom");
+        img.src = "/Images/" + fotosData[prodActual][fotoIdx];
+        document.getElementById("txtVisor").innerText = "Jabón de " + prodActual.toUpperCase() + " (Foto " + (fotoIdx + 1) + " de 3)";
+    }
+</script>

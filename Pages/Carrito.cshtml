@@ -1,0 +1,149 @@
+﻿@page
+@model CarritoModel
+@{
+    ViewData["Title"] = "Tu Carrito - MALP";
+}
+
+<div style="padding: 60px 20px; max-width: 800px; margin: auto; min-height: 80vh; font-family: 'Segoe UI', sans-serif;">
+    <h1 style="color: #1b5e20; text-align: center;">Tu Carrito de Compras</h1>
+
+    <div id="renderCarrito" style="margin-top: 30px;">
+    </div>
+
+    <div id="seccionFinalizar" style="display:none; margin-top: 30px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+        <div style="display: flex; justify-content: space-between; font-size: 1.6rem; font-weight: bold; color: #1b5e20; margin-bottom: 20px;">
+            <span>TOTAL:</span>
+            <span id="txtTotal">$ 0</span>
+        </div>
+
+        <!-- RECUADRO DE DATOS BANCARIOS (NUEVO) -->
+        <div style="background-color: #f1f8e9; border: 2px dashed #1b5e20; padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+            <h4 style="color: #1b5e20; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-university"></i> Información de Pago por Transferencia:
+            </h4>
+            <p style="margin: 5px 0; font-size: 1rem; color: #333;"><b>Banco / Plataforma:</b> PREX</p>
+            <p style="margin: 5px 0; font-size: 1rem; color: #333;"><b>Número de Cuenta:</b> 1662050</p>
+            <p style="margin: 5px 0; font-size: 1rem; color: #333;"><b>Titular:</b> María Gossio</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.85rem; color: #a0522d; font-weight: bold;">
+                *Al dar clic abajo, envíanos el comprobante de transferencia por el chat.
+            </p>
+        </div>
+
+        <div style="border-top: 1px solid #eee; padding-top: 20px;">
+            <label style="display: block; margin-bottom: 10px; font-weight: bold; color: #555;">Tu Nombre (Requerido):</label>
+            <input type="text" id="inputNombre" placeholder="Escribe tu nombre aquí..."
+                   style="width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 8px; font-size: 1rem; margin-bottom: 20px; box-sizing: border-box;">
+
+            <button onclick="enviarWhatsApp()"
+                    style="width: 100%; background: #25d366; color: white; border: none; padding: 20px; font-size: 1.2rem; font-weight: bold; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <i class="fab fa-whatsapp"></i> FINALIZAR COMPRA POR WHATSAPP
+            </button>
+            <p style="text-align: center; color: #888; font-size: 0.8rem; margin-top: 10px;">
+                Al finalizar, tu pedido se enviará por WhatsApp y el carrito se limpiará.
+            </p>
+        </div>
+    </div>
+
+    <div id="carritoVacio" style="display:none; text-align: center; margin-top: 60px;">
+        <i class="fas fa-shopping-basket" style="font-size: 4rem; color: #ddd; margin-bottom: 20px;"></i>
+        <p style="font-size: 1.3rem; color: #888;">Tu carrito está vacío.</p>
+        <a href="/#catalogo" style="color: #1b5e20; font-weight: bold; text-decoration: none;">Volver al Catálogo</a>
+    </div>
+</div>
+
+<script>
+    // Función para dibujar los productos en pantalla
+    function renderizar() {
+        const contenedor = document.getElementById('renderCarrito');
+        const finalizacion = document.getElementById('seccionFinalizar');
+        const vacio = document.getElementById('carritoVacio');
+
+        let carrito = JSON.parse(localStorage.getItem('carritoMALP')) || [];
+
+        if (carrito.length === 0) {
+            contenedor.innerHTML = "";
+            finalizacion.style.display = 'none';
+            vacio.style.display = 'block';
+            return;
+        }
+
+        vacio.style.display = 'none';
+        finalizacion.style.display = 'block';
+        contenedor.innerHTML = "";
+        let total = 0;
+
+        carrito.forEach((item, index) => {
+            total += parseInt(item.precio);
+            contenedor.innerHTML += `
+                <div style="display: flex; align-items: center; gap: 15px; background: white; padding: 15px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #eee;">
+                    <img src="/Images/${item.imagen}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;" onerror="this.src='/Images/logo1.webp'">
+                    <div style="flex: 1; text-align: left;">
+                        <h4 style="margin:0;">${item.nombre}</h4>
+                        <b style="color: #1b5e20;">$ ${item.precio}</b>
+                    </div>
+                    <button onclick="eliminar(${index})" style="background: none; border: none; color: #d32f2f; cursor: pointer; font-size: 1.2rem;">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            `;
+        });
+
+        document.getElementById('txtTotal').innerText = "$ " + total;
+    }
+
+    // Función para eliminar un producto individual
+    function eliminar(idx) {
+        let carrito = JSON.parse(localStorage.getItem('carritoMALP')) || [];
+        carrito.splice(idx, 1);
+        localStorage.setItem('carritoMALP', JSON.stringify(carrito));
+        renderizar();
+        if(typeof actualizarContador === 'function') actualizarContador();
+    }
+
+    // Función principal: Envía a WhatsApp y BORRA el carrito
+    function enviarWhatsApp() {
+        const nombreInput = document.getElementById('inputNombre');
+        const nombre = nombreInput.value.trim();
+
+        if (!nombre) {
+            alert("Por favor, ingresa tu nombre para personalizar el pedido.");
+            nombreInput.focus();
+            return;
+        }
+
+        let carrito = JSON.parse(localStorage.getItem('carritoMALP')) || [];
+        if (carrito.length === 0) return;
+
+        let total = 0;
+        let mensaje = `🌿 *PEDIDO MALP* 🌿%0A`;
+        mensaje += `*Cliente:* ${nombre}%0A%0A`;
+        mensaje += `*Detalle:*%0A`;
+
+        carrito.forEach(p => {
+            mensaje += `• ${p.nombre} ($${p.precio})%0A`;
+            total += parseInt(p.precio);
+        });
+
+        mensaje += `%0A💰 *TOTAL: $${total}*%0A%0A`;
+        mensaje += `*Pago:* Realizaré transferencia a la cuenta PREX informada.%0A`;
+        mensaje += `A continuación adjunto el comprobante de transferencia y coordinamos el envío. 🍀`;
+
+        const numeroTelefono = "59894539644";
+
+        // 1. Abrir WhatsApp en pestaña nueva
+        window.open(`https://wa.me/${numeroTelefono}?text=${mensaje}`, '_blank');
+
+        // 2. Limpiar el localStorage inmediatamente
+        localStorage.removeItem('carritoMALP');
+
+        // 3. Opcional: Actualizar el contador del Layout si existe
+        if(typeof actualizarContador === 'function') actualizarContador();
+
+        // 4. Recargar la página para mostrar el estado vacío
+        alert("¡Pedido registrado! Serás redirigido a WhatsApp para enviar el mensaje y adjuntar tu comprobante.");
+        location.reload();
+    }
+
+    // Ejecutar al cargar la página
+    document.addEventListener('DOMContentLoaded', renderizar);
+</script>

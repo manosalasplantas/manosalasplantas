@@ -1,0 +1,148 @@
+﻿@page "/OportunidadUnica"
+@{
+    ViewData["Title"] = "Dúo Bienestar Natural - MALP";
+}
+
+<style>
+    /* Estilos exclusivos para esta página */
+    .marquesina-oferta {
+        background-color: #ffb347; /* Beige anaranjado */
+        color: white;
+        padding: 15px 0;
+        overflow: hidden;
+        white-space: nowrap;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-radius: 8px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .marquesina-oferta-contenido {
+        display: inline-block;
+        animation: scroll-oferta 20s linear infinite;
+    }
+
+    @@keyframes scroll-oferta {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+    .precio-tachado {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 1.5rem;
+    }
+
+    .ahorro-badge {
+        background-color: #d32f2f;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 1.1rem;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    /* Efecto hover para el botón de carrito */
+    .btn-carrito-oferta:hover {
+        background-color: #2e7d32 !important;
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(27, 94, 32, 0.4) !important;
+    }
+</style>
+
+<div style="background-color: #f5f5dc; min-height: 100vh; padding: 40px 20px; font-family: 'Segoe UI', sans-serif;">
+
+    <div style="max-width: 850px; margin: auto; text-align: center;">
+
+        <div class="marquesina-oferta" role="alert" aria-label="Oferta limitada">
+            <div class="marquesina-oferta-contenido">
+                🔥 ¡OPORTUNIDAD! POR TIEMPO LIMITADO! ENVÍOS A TODO EL PAÍS 🔥 &nbsp;&nbsp;&nbsp; 🔥 ¡OPORTUNIDAD! POR TIEMPO LIMITADO! ENVÍOS A TODO EL PAÍS 🔥
+            </div>
+        </div>
+
+        <h1 style="color: var(--verde-malp); font-size: 3rem; margin-bottom: 10px;">Dúo Bienestar Natural</h1>
+        <p style="font-size: 1.3rem; color: #444; margin-bottom: 40px;">Calidad técnica y cuidado artesanal en un solo conjunto.</p>
+
+        <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: 1px solid #eee;">
+
+            <div style="display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; margin-bottom: 30px;">
+                <div style="text-align: center;">
+                    <img src="/Images/eco lavanda.png" alt="Ecodesodorante de Lavanda" style="width: 220px; height: 220px; object-fit: contain;" />
+                    <p style="font-weight: bold; margin-top: 10px; color: var(--verde-malp);">Ecodesodorante 30 ml</p>
+                </div>
+
+                <span style="font-size: 4rem; color: var(--verde-salvia); font-weight: 300;">+</span>
+
+                <div style="text-align: center;">
+                    <img src="/Images/lavanda.webp" alt="Jabón de Lavanda MALP" style="width: 220px; height: 220px; object-fit: contain;" />
+                    <p style="font-weight: bold; margin-top: 10px; color: var(--verde-malp);">Jabón de lavanda</p>
+                </div>
+            </div>
+
+            <div style="max-width: 650px; margin: auto; border-top: 1px solid #eee; padding-top: 25px;">
+                <p style="color: #333; font-size: 1.2rem; line-height: 1.6; margin-bottom: 20px;">
+                    <strong>Jabón de lavanda: elaborado a partir de una base de glicerina vegetal de alta calidad, enriquecido con lavanda para brindar una limpieza suave y un aroma equilibrado.</strong>
+                </p>
+
+                <p style="color: #333; font-size: 1.2rem; line-height: 1.6;">
+                    <strong>Eco Desosodorante, protección efectiva sin aluminio, con una fórmula equilibrada que aporta suavidad y un aroma armónico para el uso diario. ✨ Desarrollado para quienes buscan una alternativa natural con resultados reales.</strong>
+                </p>
+
+                <div style="margin-top: 40px; background: #fff9f0; padding: 25px; border-radius: 15px; border: 2px solid #ffb347;">
+                    <p style="margin: 0; font-size: 1.1rem; color: #777;">Precio habitual: <span class="precio-tachado">$650</span></p>
+                    <div style="margin: 10px 0;">
+                        <span style="font-size: 4.5rem; font-weight: 900; color: var(--verde-malp);">$500</span>
+                        <span style="font-size: 1.5rem; font-weight: bold; color: var(--verde-malp);">UYU</span>
+                    </div>
+                    <div class="ahorro-badge">AHORRÁS $150 HOY</div>
+                </div>
+            </div>
+
+            <button type="button" onclick="agregarOfertaAlCarrito()" class="btn-carrito-oferta"
+                    style="background-color: var(--verde-malp); color: white; padding: 22px 50px; border: none; font-weight: bold; font-size: 1.4rem; border-radius: 8px; display: inline-block; margin-top: 40px; transition: 0.3s; box-shadow: 0 4px 15px rgba(27, 94, 32, 0.3); cursor: pointer;">
+                <i class="fas fa-cart-plus"></i> AGREGAR AL CARRITO
+            </button>
+
+        </div>
+
+        <div style="margin-top: 50px;">
+            <a href="/#catalogo" style="color: var(--verde-salvia); text-decoration: none; font-weight: bold;">
+                <i class="fas fa-chevron-left"></i> Volver a la tienda
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function agregarOfertaAlCarrito() {
+        // 1. Obtener el carrito actual
+        let carrito = JSON.parse(localStorage.getItem('carritoMALP')) || [];
+
+        // 2. Crear el objeto del pack
+        const packDuo = {
+            nombre: "Dúo Bienestar Natural (Eco + Jabón)",
+            precio: 500,
+            imagen: "eco lavanda.png" // O la imagen que prefieras mostrar en el carrito
+        };
+
+        // 3. Agregar al carrito y guardar
+        carrito.push(packDuo);
+        localStorage.setItem('carritoMALP', JSON.stringify(carrito));
+
+        // 4. Actualizar el numerito del menú si existe la función en el Layout
+        if (typeof actualizarContador === 'function') {
+            actualizarContador();
+        }
+
+        // 5. Redirigir al Carrito para confirmar
+        window.location.href = "/Carrito";
+    }
+</script>

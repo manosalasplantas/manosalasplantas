@@ -1,0 +1,171 @@
+﻿@page "/QuienesSomos"
+@{
+    ViewData["Title"] = "Quiénes Somos - MALP";
+}
+
+<style>
+    .quienes-container {
+        max-width: 1000px;
+        margin: auto;
+        padding: 40px 20px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .foto-grupal-reducida {
+        width: 100%;
+        max-width: 800px;
+        border-radius: 15px;
+        margin: 20px auto;
+        display: block;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .seccion-perfiles {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        margin-top: 50px;
+    }
+
+    .columna-perfil {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        text-align: center;
+    }
+
+    .contenedor-fotos-perfil {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .foto-perfil {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--verde-malp);
+    }
+
+    .nombre-perfil {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--verde-malp);
+    }
+
+    .rol-perfil {
+        display: block;
+        color: var(--acento-terracota);
+        font-weight: 500;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+
+    .texto-historia {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #444;
+        text-align: justify;
+    }
+
+    #btnArriba {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 99;
+        border: none;
+        outline: none;
+        background-color: var(--acento-terracota);
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 50%;
+        width: 55px;
+        height: 55px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transition: 0.3s;
+        font-size: 1.3rem;
+    }
+
+        #btnArriba:hover {
+            background-color: var(--verde-malp);
+            transform: scale(1.1);
+        }
+</style>
+
+<div class="quienes-container">
+    <a href="/" style="text-decoration: none; color: var(--verde-malp); font-weight: bold;"><i class="fas fa-arrow-left"></i> Volver</a>
+
+    <div style="text-align:center; margin-top:30px;">
+        <h1 style="color: var(--verde-malp); font-size: 3rem;">Manos a las Plantas</h1>
+        <h2 style="color: var(--verde-malp); font-style: italic; opacity: 0.8;">Derribando Mitos</h2>
+    </div>
+
+    <img src="~/Images/ALEJANDRAYSANDRA.webp" alt="Alejandra y Sandra" class="foto-grupal-reducida" />
+
+    <p style="font-size: 1.4rem; text-align: center; color: #333; margin: 40px 0;">
+        <strong>MALP</strong> es un proyecto de producción artesanal con estándares reales. Creemos que la excelencia no depende de la vista, sino del compromiso y la disciplina.
+    </p>
+
+    <div class="seccion-perfiles">
+        <!-- PERFIL ALEJANDRA -->
+        <div class="columna-perfil">
+            <div class="contenedor-fotos-perfil">
+                <img src="~/Images/ALEJANDRA.webp" alt="Alejandra" class="foto-perfil" />
+                <img src="~/Images/ALEJANDRA1.webp" alt="Alejandra trabajando" class="foto-perfil" />
+            </div>
+            <span class="nombre-perfil">Alejandra</span>
+            <span class="rol-perfil">Fundadora · Producción Técnica</span>
+            <p class="texto-historia">
+                🔹 Alejandra lidera el desarrollo y la producción de MALP. Supervisa la formulación de cada producto, la selección de materias primas y el control en cada etapa del proceso artesanal. Su enfoque técnico sostiene la consistencia y el rendimiento de nuestros productos.
+            </p>
+        </div>
+
+        <!-- PERFIL SANDRA (AJUSTADO PARA SEGURIDAD PREVISIONAL) -->
+        <div class="columna-perfil">
+            <div class="contenedor-fotos-perfil">
+                <img src="~/Images/SANDRA.webp" alt="Sandra" class="foto-perfil" />
+                <img src="~/Images/SANDRA1.webp" alt="Sandra colaborando" class="foto-perfil" />
+            </div>
+            <span class="nombre-perfil">Sandra</span>
+            <span class="rol-perfil">Colaboración en Comunicación Digital</span>
+            <p class="texto-historia">
+                🔹 Sandra aporta su experiencia técnica en la optimización de la experiencia digital y el soporte informativo de MALP. Su colaboración externa se centra en la organización de los canales de contacto y el mantenimiento de la claridad informativa en la web. Brinda apoyo en la orientación al usuario y en la coherencia de la identidad digital, facilitando el vínculo entre la propuesta artesanal de Manos a las plantas y su comunidad.
+            </p>
+        </div>
+    </div>
+
+    <div style="background: #f1f8e9; padding: 40px; border-radius: 15px; margin-top: 50px; text-align: center;">
+        <h3 style="color: var(--verde-malp);">La discapacidad forma parte de nuestra identidad.</h3>
+        <h3 style="color: var(--acento-terracota);">La calidad es lo que nos define.</h3>
+    </div>
+</div>
+
+<button onclick="topFunction()" id="btnArriba" title="Ir al inicio">
+    <i class="fas fa-chevron-up"></i>
+</button>
+
+<script>
+    let mybutton = document.getElementById("btnArriba");
+
+    window.onscroll = function() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    };
+
+    function topFunction() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+</script>

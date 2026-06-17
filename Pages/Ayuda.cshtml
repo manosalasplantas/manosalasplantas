@@ -1,0 +1,131 @@
+﻿@page "/Ayuda"
+@{
+    ViewData["Title"] = "Centro de Ayuda - MALP";
+}
+
+<style>
+    .ayuda-container {
+        max-width: 800px;
+        margin: auto;
+        padding: 40px 20px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Contenedor de botones de navegación */
+    .nav-botones {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    .btn-regresar {
+        background: none;
+        border: none;
+        color: var(--verde-malp);
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0;
+    }
+
+        .btn-regresar:hover {
+            text-decoration: underline;
+        }
+
+    .titulo-verde {
+        color: var(--verde-malp);
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .pregunta-frecuente {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border-left: 4px solid var(--acento-terracota);
+    }
+
+        .pregunta-frecuente h4 {
+            margin: 0 0 10px 0;
+            color: var(--verde-malp);
+        }
+
+    .contacto-ayuda {
+        margin-top: 50px;
+        text-align: center;
+        background: #f1f8e9;
+        padding: 30px;
+        border-radius: 15px;
+    }
+
+    .btn-whatsapp {
+        display: inline-block;
+        background: #25d366;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 15px;
+        transition: transform 0.2s;
+    }
+
+        .btn-whatsapp:hover {
+            transform: scale(1.05);
+        }
+</style>
+
+<div class="ayuda-container">
+    <!-- Botones de Navegación -->
+    <div class="nav-botones">
+        <button onclick="window.history.back()" class="btn-regresar">
+            <i class="fas fa-arrow-left"></i> Volver atrás
+        </button>
+        
+        <a href="/" class="btn-regresar">
+            <i class="fas fa-home"></i> Ir al Inicio
+        </a>
+    </div>
+
+    <h1 class="titulo-verde">Centro de Ayuda</h1>
+
+    <div class="pregunta-frecuente">
+        <h4>¿Cómo realizo una compra?</h4>
+        <p>Explora nuestros productos en la página principal, selecciona el combo que más te guste y añádelo al carrito. Luego, sigue los pasos en la sección de Carrito para finalizar.</p>
+    </div>
+
+    <div class="pregunta-frecuente">
+        <h4>¿Hacen envíos a todo el país?</h4>
+        <p>Sí, realizamos envíos desde Montevideo a todos los departamentos por la agencia de tu preferencia o cadetería privada.</p>
+    </div>
+
+    <div class="pregunta-frecuente">
+        <h4>¿Qué medios de pago aceptan?</h4>
+        <p>Aceptamos transferencias bancarias y Mercado Pago.</p>
+    </div>
+
+    <div class="contacto-ayuda">
+        <h3>¿Aún tienes dudas?</h3>
+        <p>Estamos aquí para asesorarte de forma personalizada.</p>
+        <a href="https://wa.me/094539644" target="_blank" class="btn-whatsapp">
+            <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+        </a>
+    </div>
+</div>
+
+<script>
+    // Pequeño script para asegurar que el botón de volver atrás
+    // funcione incluso si el usuario entró directo a la página
+    function volverAtras() {
+        if (document.referrer.indexOf(window.location.host) !== -1) {
+            window.history.back();
+        } else {
+            window.location.href = "/";
+        }
+    }
+</script>

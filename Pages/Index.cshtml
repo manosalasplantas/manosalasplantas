@@ -1,0 +1,213 @@
+﻿@page
+@{
+    ViewData["Title"] = "Calidad en Cosmética Natural";
+}
+
+<style>
+    .hero {
+        padding: 120px 20px;
+        text-align: center;
+        background-color: #f5f5dc;
+        border-bottom: 1px solid #eee;
+    }
+
+    .hero h1 {
+        font-size: 4rem;
+        color: var(--verde-malp);
+        margin: 0;
+        letter-spacing: 4px;
+    }
+
+    .hero p.tagline {
+        font-size: 1.5rem;
+        color: var(--acento-terracota);
+        font-weight: 500;
+        margin-top: 10px;
+    }
+
+    /* ESTITO BASE PARA LOS BOTONES DEL HERO */
+    .btn-hero {
+        padding: 15px 40px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 4px;
+        display: inline-block;
+        margin: 10px;
+        transition: 0.3s;
+        cursor: pointer;
+        border: none;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn-hero:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-terracota {
+        background-color: var(--acento-terracota);
+        color: white;
+    }
+
+    .btn-terracota:hover {
+        background-color: #8b4513;
+    }
+
+    .btn-verde-calidad {
+        background-color: var(--verde-malp);
+        color: white;
+    }
+
+    .btn-verde-calidad:hover {
+        background-color: var(--verde-salvia);
+    }
+
+    /* --- CARTEL DE OPORTUNIDAD --- */
+    .badge-oportunidad {
+        background-color: #d32f2f; /* Rojo llamativo */
+        color: white;
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        display: inline-block;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+        animation: pulse-red 2s infinite;
+        cursor: pointer;
+    }
+
+    @Html.Raw("@")keyframes pulse-red {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .grid-catalogo-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 40px;
+    }
+
+    .card-link {
+        background: var(--verde-malp);
+        color: white;
+        padding: 25px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 4px;
+        transition: 0.3s;
+    }
+
+    .card-link:hover {
+        background: var(--verde-salvia);
+    }
+
+    .contenedor-carrusel-full {
+        width: 100%;
+        overflow: hidden;
+        background: white;
+        padding: 40px 0;
+    }
+
+    .track-carrusel-full {
+        display: flex;
+        width: calc(250px * 16);
+        animation: scroll-fotos 30s linear infinite;
+    }
+
+    .track-carrusel-full img {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+        margin: 0 25px;
+    }
+
+    @Html.Raw("@")keyframes scroll-fotos {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-250px * 8)); }
+    }
+
+    @Html.Raw("@")media (max-width: 768px) {
+        .hero h1 { font-size: 2.5rem; }
+        .hero p.tagline { font-size: 1.1rem; }
+    }
+</style>
+
+<section class="hero">
+    <h1>MALP</h1>
+    <p class="tagline">Artesanía natural, calidad que se confirma con el uso.</p>
+    <div style="margin-top: 40px;">
+        <a href="#seccion-catalogo" class="btn-hero btn-terracota">Ver catálogo</a>
+        <a href="/Proceso" class="btn-hero btn-verde-calidad">Conocer nuestra calidad</a>
+    </div>
+</section>
+
+<section id="seccion-productos" style="padding: 80px 20px; background-color: #f9fbf9;">
+    <div style="max-width: 900px; margin: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 50px;">
+
+        <div style="flex: 1; min-width: 300px;">
+            <a href="/OportunidadUnica" style="text-decoration: none;">
+                <div class="badge-oportunidad">¡ OPORTUNIDAD ÚNICA !</div>
+            </a>
+
+            <h2 style="color: var(--verde-malp); margin-top: 0;">Ecodesodorante natural (30 ml)</h2>
+            <p style="font-size: 1.2rem; line-height: 1.8;">
+                Nuestra fórmula combina aceite de coco, bicarbonato de sodio, vitamina E y aceites esenciales seleccionados, buscando simplicidad, pureza y eficacia real.
+            </p>
+            <p style="font-weight: bold; color: var(--acento-terracota);">Puede durar hasta 3 meses de uso regular.</p>
+
+            <a href="/OportunidadUnica" class="btn-hero btn-terracota">Ver detalles y comprar</a>
+        </div>
+
+        <div style="flex: 1; min-width: 300px; text-align: center;">
+            <a href="/OportunidadUnica">
+                <img src="/Images/eco lavanda.png" alt="Ecodesodorante Natural MALP" style="width: 100%; max-width: 350px; height: auto; object-fit: contain;" onerror="this.src='/Images/logo1.webp'" />
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CARRUSEL CON SALVAVIDAS AUTOMÁTICO -->
+<div class="contenedor-carrusel-full">
+    <div class="track-carrusel-full">
+        <img src="/Images/logo1.webp" alt="Logo MALP" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/CANELA.png" alt="Jabón" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/lavanda.webp" alt="Jabón" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/Marina.png" alt="Splash" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/Miel1.webp" alt="Jabón" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/arroz1.png" alt="Jabón" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/Rosas.png" alt="Splash" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/Violetas.png" alt="Splash" onerror="this.src='/Images/logo1.webp'" />
+        
+        <!-- Repetición idéntica para lograr el efecto de bucle infinito -->
+        <img src="/Images/logo1.webp" alt="Logo MALP" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/CANELA.png" alt="Jabón" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/lavanda.webp" alt="Jabón" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/Marina.png" alt="Splash" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/Miel1.webp" alt="Jabón" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/arroz1.png" alt="Jabón" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/Rosas.png" alt="Splash" onerror="this.src='/Images/logo1.webp'" />
+        <img src="/Images/Violetas.png" alt="Splash" onerror="this.src='/Images/logo1.webp'" />
+    </div>
+</div>
+
+<section id="seccion-catalogo" style="padding: 80px 20px; max-width: 1000px; margin: auto;">
+    <h2 style="text-align: center; color: var(--texto);">Nuestro Catálogo</h2>
+    <p style="text-align: center;">Seleccione la categoría de su interés:</p>
+
+    <div class="grid-catalogo-links">
+        <a href="/Jabones" class="card-link">JABONES</a>
+        <a href="/BodySplash" class="card-link">BODY SPLASH</a>
+        <a href="/Perfumadores" class="card-link">PERFUMADORES</a>
+        <a href="/EcoDesodorantes" class="card-link">ECO DESODORANTES</a>
+        <a href="/Pomadas" class="card-link">POMADAS</a>
+        <a href="/Tinturas" class="card-link">TINTURAS</a>
+        <a href="/GelPiernas" class="card-link">GEL DE PIERNAS</a>
+        <a href="/AguaMicelar" class="card-link">AGUA MICELAR</a>
+    </div>
+</section>
